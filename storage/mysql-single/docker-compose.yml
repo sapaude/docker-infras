@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db:
+    image: mysql
+    container_name: mysql-single
+    ports:
+      - 3306:3306
+    volumes:
+      - /data/docker_volumes/mysql-data/:/var/lib/mysql/
+      - ./conf.d/:/etc/mysql/conf.d/
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "Secret123."

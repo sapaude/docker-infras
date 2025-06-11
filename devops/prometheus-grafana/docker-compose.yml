@@ -1,0 +1,22 @@
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus-cvm
+    ports:
+        - 9090:9090
+    volumes:
+        - /data/docker_volumes/prometheus:/prometheus
+        - ./conf.d/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart: always
+  grafana:
+    image: grafana/grafana
+    container_name: grafana-cvm
+    volumes:
+        - /data/docker_volumes/grafana:/var/lib/grafana
+        - ./conf.d/grafana.ini:/etc/grafana/grafana.ini
+    ports:
+        - 3000:3000
+    environment:
+        GF_INSTALL_PLUGINS: "grafana-simple-json-datasource,grafana-simple-json-datasource"
+    restart: always

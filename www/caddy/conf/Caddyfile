@@ -1,0 +1,13 @@
+# Global 配置
+{
+    log {
+			output file /var/log/caddy/error.log {
+			roll_size 100mb
+			roll_keep 5
+		}
+		level ERROR
+		format json
+	}
+}
+
+import ./*.caddy

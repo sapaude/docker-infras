@@ -1,0 +1,12 @@
+version: '3'
+services:
+  kibana:
+    image: nginx:alpine
+    container_name: nginx-single
+    restart: always
+    ports:
+        - 80:80
+        - 8080:8080
+    volumes:
+        - ./conf.d:/etc/nginx/conf.d
+        - /data/www/openplatform-website:/data/www/openplatform-website

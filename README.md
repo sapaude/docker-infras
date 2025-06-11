@@ -1,2 +1,26 @@
-# docker-compose-infras
-把一些常用的基础设施的容器化配置维护起来
+# Docker
+
+存放服务相关Docker Composer配置，包含开发常用服务
+
+```shell
+$ tree -L 2                  
+.
+├── cache
+│   └── redis-single
+├── devops
+│   └── prometheus-grafana
+├── LICENSE
+├── mq
+│   └── kafka
+├── README.md
+├── search
+│   ├── elk-cluster
+│   └── elk-single
+├── storage
+│   ├── clickhouse
+│   └── mysql-single
+└── www
+    ├── caddy
+    └── nginx
+
+```

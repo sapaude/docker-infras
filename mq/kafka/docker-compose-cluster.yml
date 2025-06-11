@@ -1,0 +1,78 @@
+version: "3.4"
+services:
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.7
+    ports:
+      - "2181:2181"
+    volumes:
+      - /data/docker_volumes/kafka-data/zookeeper_data:/bitnami
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+  kafka_01:
+    image: docker.io/bitnami/kafka:3
+    hostname: kafka_01
+    ports:
+      - "9091:9091"
+    volumes:
+      - /data/docker_volumes/kafka-data/kafka_data_01:/bitnami
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_BROKER_ID=1
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9091
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka1:9091
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      # - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      # - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      # - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
+      # - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+    depends_on:
+      - zookeeper
+    restart: on-failure
+  kafka_02:
+    image: docker.io/bitnami/kafka:3
+    hostname: kafka_02
+    ports:
+      - "9092:9092"
+    volumes:
+      - /data/docker_volumes/kafka-data/kafka_data_02:/bitnami
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_BROKER_ID=2
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka1:9092
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    depends_on:
+      - zookeeper
+    restart: on-failure
+  kafka_03:
+    image: docker.io/bitnami/kafka:3
+    hostname: kafka_03
+    ports:
+      - "9093:9093"
+    volumes:
+      - /data/docker_volumes/kafka-data/kafka_data_03:/bitnami
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_BROKER_ID=2
+      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka1:9092
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    depends_on:
+      - zookeeper
+    restart: on-failure
+  kafka-manager:
+    image: kafkamanager/kafka-manager
+    ports:
+      - "9000:9000"
+    environment:
+      - ZK_HOSTS=zookeeper:2181
+      - KAFKA_MANAGER_AUTH_ENABLED=true
+      - KAFKA_MANAGER_USERNAME=admin
+      - KAFKA_MANAGER_PASSWORD=clark
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeeper
+networks:
+  default:
+    external: true
+    name: kafka-net
