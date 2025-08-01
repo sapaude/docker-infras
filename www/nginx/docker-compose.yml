@@ -1,12 +1,9 @@
-version: '3'
 services:
-  kibana:
+  nginx:
     image: nginx:alpine
     container_name: nginx-single
     restart: always
     ports:
-        - 80:80
-        - 8080:8080
+        - 18090:80
     volumes:
-        - ./conf.d:/etc/nginx/conf.d
-        - /data/www/openplatform-website:/data/www/openplatform-website
+        - /private/data/projects/github.com/sapaude/docker-infras/www/nginx/conf.d:/etc/nginx/conf.d

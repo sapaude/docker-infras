@@ -1,5 +1,0 @@
-
-
-```shell
-docker pull redis
-```
