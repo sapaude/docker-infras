@@ -4,6 +4,6 @@ services:
     container_name: nginx-single
     restart: always
     ports:
-        - 18090:80
+        - "80:80"
     volumes:
-        - /private/data/projects/github.com/sapaude/docker-infras/www/nginx/conf.d:/etc/nginx/conf.d
+        - /data/projects/github.com/sapaude/docker-infras/www/nginx/conf.d/:/etc/nginx/conf.d/

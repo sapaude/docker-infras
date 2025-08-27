@@ -1,0 +1,13 @@
+# doc.sapaude.tech
+:8890 {
+     # 日志
+    import access_log
+
+    # 路径
+    root /data/www/docs/rust/html
+    file_server
+    try_files {path} {path}/index.html /index.html
+
+    # 响应
+    encode gzip
+}

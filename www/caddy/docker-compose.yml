@@ -3,12 +3,9 @@ services:
     image: caddy:latest
     container_name: caddy-httpd-www
     ports:
-#      - "8090:8090" # tkstorm.com
-      - "8091:8091" # sapaude.tech
-      - "8092:8092" # archstat.com
+      - "8888:8888"
+      - "8890:8890"
     volumes:
-#      - /data/projects/github.com/lupguo/tkstorm.com/public:/data/projects/github.com/lupguo/tkstorm.com/public:ro
-      - /data/projects/github.com/lupguo/sapadue.tech/dist:/data/projects/github.com/lupguo/sapadue.tech/dist:ro
-      - /data/projects/github.com/lupguo/archstat.com/dist:/data/projects/github.com/lupguo/archstat.com/dist:ro
-      - ./conf:/etc/caddy
-      - ./logs:/var/log/caddy
+      - /data/projects/github.com/sapaude/docker-infras/www/caddy/conf:/etc/caddy
+      - /data/www/docs/rust:/data/www/docs/rust:ro
+      - /data/projects/github.com/sapaude/docker-infras/www/caddy/siteinfo:/data/www/siteinfo

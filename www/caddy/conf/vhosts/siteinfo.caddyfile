@@ -1,0 +1,4 @@
+# doc.sapaude.tech
+:8888 {
+    import static_site_core /data/www/siteinfo
+}
